@@ -1,0 +1,10 @@
+<ng-container *ngIf="data$ |async as data">
+    <div style="overflow: auto;">
+                <mc-loading *ngIf="data.isLoading"></mc-loading>
+                    <ng-container     *ngIf="data.errors as errors">    <mc-backend-error-messages
+                        [backendErrors]="errors"></mc-backend-error-messages>
+                    </ng-container>
+            <mc-post-comment [slug]="slug"></mc-post-comment>
+            <mc-comment *ngFor="let comment of data.comments" [comment]="comment" [slug]="slug"> </mc-comment>
+    </div>
+</ng-container>

@@ -1,0 +1,7 @@
+<div class="pull-xs-right" *ngIf="!isCurrentUser">
+<button (click)="follow()">
+    <span *ngIf="isFollow">- Unfollow </span>
+    <span *ngIf="!isFollow">+ Follow </span>
+    {{profileSlug}}
+</button>
+</div>

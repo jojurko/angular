@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-block"><p class="card-text">{{comment?.body}}</p></div>
+  <div class="card-footer" >
+    <a class="comment-author" [routerLink]="['/profiles', comment?.author?.username]"> 
+        <img class="comment-author-img" [src]="comment?.author?.image"/>
+    </a> &nbsp;
+    <a class="comment-author" [routerLink]="['/profiles', comment?.author?.username]">
+        {{comment?.author?.username}}
+    </a>
+    <span class="data-posted">{{comment?.createdAt | date: 'dd.MM.yyyy'}}</span>
+    <span class="mod-options" (click)="delete()"><i class="ion-trash-a"></i>delete</span>
+</div>    
+</div>
+
+
+

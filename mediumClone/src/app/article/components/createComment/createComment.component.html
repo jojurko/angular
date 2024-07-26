@@ -1,0 +1,17 @@
+<div clas="row">
+    <div class="col-xs-12 col-md-8 offset-md-2">
+        <div>
+            <ng-container *ngIf="data$ | async as data">
+                <mc-backend-error-messages *ngIf="data.errors" [backendErrors]="data.errors"></mc-backend-error-messages>
+            </ng-container>
+            <form [formGroup]="form" (ngSubmit)="post()" class="card comment-form">
+                <div class="card-block">
+                    <textarea rows="3" class="form-control" formControlName="body"></textarea>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-sm btn-primary">POST</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
