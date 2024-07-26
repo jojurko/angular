@@ -1,15 +1,19 @@
 import { computed, inject, Injectable, signal } from "@angular/core";
 import { QuestionInterface } from "../types/question.interface";
-import { map, Observable } from "rxjs";
+import { catchError, map, Observable, of, tap } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { BackendQuestionInterface } from "../types/backendQuestion.interface";
+import { CategoryInterface } from "../types/category.interface";
+import { BackendCategoriesInterface } from "../types/backendCategories.interface";
 
 @Injectable({providedIn: 'root'})
 export class QuizService {
   http = inject(HttpClient)
   error = signal<string|null>(null)
   question = signal<QuestionInterface[]> ([]);
+  categories = signal<CategoryInterface[]>([])
   currentAnswer = signal<string|null>(null)
+  currentCategory = signal<number|null>(null);
   correctAnswerCount = signal<number>(0)
   currentQuestionIndex=signal<number>(0)
   currentQuestion = computed(()=>this.question()[this.currentQuestionIndex()])
@@ -20,9 +24,35 @@ export class QuizService {
     ()=>this.currentQuestionIndex()=== this.question().length && this.question().length >0
   )
 
+  fetchCategories():void {
+    const apiUrl="https://opentdb.com/api_category.php"
+    this.http.get<BackendCategoriesInterface>(apiUrl).pipe(
+      tap(response=>this.categories.set(response.trivia_categories)),
+      catchError( error => {this.error.set(error.message)
+        return of([]);
+      })
+    ).subscribe()
+  }
+
+  fetchQuestions():void {
+    this.question.set([])
+    this.getQuestions().subscribe({
+      next: questions=>this.question.set(questions),
+     error:(err)=>
+       this.error.set(err.message),
+     })
+  }
+
   getQuestions(): Observable<QuestionInterface[]> {
     const apiUrl="https://opentdb.com/api.php?amount=10&encode=url3986"
-    return this.http.get<{results: BackendQuestionInterface[]}>(apiUrl).pipe(
+    let url
+    if (this.currentCategory()) {
+      url=apiUrl+`&category=${this.currentCategory()}`
+    } else {
+      url=apiUrl
+    }
+    console.log(url)
+    return this.http.get<{results: BackendQuestionInterface[]}>(url).pipe(
       map(response=>this.normalizeQuestions(response.results))
     )
   }

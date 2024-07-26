@@ -1,0 +1,27 @@
+<div class="results">
+    <div class="congratulations">Congratulations!</div>
+    <div class="results-info">
+      <div>You have completed the quiz.</div>
+      <div>You`ve got {{quizService.correctAnswerCount()}} of {{quizService.question().length}} right.</div>
+    </div>
+    <div class="buttons-grid">
+     <div><button class="next-button" (click)="quizService.restart()"> Restart</button></div>
+     <div>
+      
+        <form #categoryForm="ngForm" (ngSubmit)="start(categoryForm.value)">
+          <button type="submit" class="next-button"> Start new quiz</button>
+          <div *ngFor="let category of quizService.categories(); let i = index" class="cat-items">
+              <input 
+                type="radio" 
+                name="category" 
+                [value]="category.id" 
+                [(ngModel)]="selectedCategory" 
+                required>
+              <label>{{ category.name }}</label>
+            </div>
+          
+          </form>
+    </div>
+    </div>
+    
+ </div>

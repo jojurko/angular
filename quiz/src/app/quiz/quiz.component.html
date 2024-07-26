@@ -9,18 +9,7 @@
     </div>
   }
   @if (quizService.showResults()){
-    <div class="results">
-       <div class="congratulations">Congratulations!</div>
-       <div class="results-info">
-         <div>You have completed the quiz.</div>
-         <div>You`ve got {{quizService.correctAnswerCount()}} of {{quizService.question().length}} right.</div>
-       </div>
-       <div class="buttons-grid">
-        <div class="next-button" (click)="quizService.restart()"> Restart</div>
-        <div class="next-button" (click)="start()"> Start new quiz</div>
-       </div>
-       
-    </div>
+    <quiz-result-page></quiz-result-page>
   }
 
   @if (!quizService.showResults() && quizService.question().length>0) {
