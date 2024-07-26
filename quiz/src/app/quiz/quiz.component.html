@@ -1,0 +1,34 @@
+<div class="quiz">
+  @if (quizService.error()){
+    <div class="results">
+       <div class="congratulations">Server error</div>
+       <div class="results-info">
+         <div>{{quizService.error()}}</div>         
+       </div>
+       <div class="next-button" (click)="quizService.restart()"> Restart</div>
+    </div>
+  }
+  @if (quizService.showResults()){
+    <div class="results">
+       <div class="congratulations">Congratulations!</div>
+       <div class="results-info">
+         <div>You have completed the quiz.</div>
+         <div>You`ve got {{quizService.correctAnswerCount()}} of {{quizService.question().length}} right.</div>
+       </div>
+       <div class="next-button" (click)="quizService.restart()"> Restart</div>
+    </div>
+  }
+
+  @if (!quizService.showResults() && quizService.question().length>0) {
+    <div>
+      <div class="score">Question {{quizService.currentQuestionIndex()+1}}/{{quizService.question().length}}</div>
+      <quiz-question />
+      <div 
+       (click)="quizService.goToNextQuestion()"
+       [ngClass]="{'next-button':true, 
+       'hide':!quizService.currentAnswer()}">Next question</div>
+       
+    </div>
+  }    
+</div>
+  
