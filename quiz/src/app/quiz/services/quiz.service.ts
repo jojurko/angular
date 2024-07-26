@@ -17,7 +17,7 @@ export class QuizService {
     ()=>this.shuffleAnswers(this.currentQuestion())
     )
   showResults = computed(
-    ()=>this.currentQuestionIndex()=== this.question().length
+    ()=>this.currentQuestionIndex()=== this.question().length && this.question().length >0
   )
 
   getQuestions(): Observable<QuestionInterface[]> {

@@ -5,7 +5,7 @@
        <div class="results-info">
          <div>{{quizService.error()}}</div>         
        </div>
-       <div class="next-button" (click)="quizService.restart()"> Restart</div>
+       <div class="next-button" (click)="quizService.restart()"> Try start</div>
     </div>
   }
   @if (quizService.showResults()){
@@ -27,7 +27,6 @@
        (click)="quizService.goToNextQuestion()"
        [ngClass]="{'next-button':true, 
        'hide':!quizService.currentAnswer()}">Next question</div>
-       
     </div>
   }    
 </div>
