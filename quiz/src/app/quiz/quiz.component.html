@@ -5,7 +5,7 @@
        <div class="results-info">
          <div>{{quizService.error()}}</div>         
        </div>
-       <div class="next-button" (click)="quizService.restart()"> Try start</div>
+       <div class="next-button" (click)="start()"> Try start</div>
     </div>
   }
   @if (quizService.showResults()){
@@ -15,7 +15,11 @@
          <div>You have completed the quiz.</div>
          <div>You`ve got {{quizService.correctAnswerCount()}} of {{quizService.question().length}} right.</div>
        </div>
-       <div class="next-button" (click)="quizService.restart()"> Restart</div>
+       <div class="buttons-grid">
+        <div class="next-button" (click)="quizService.restart()"> Restart</div>
+        <div class="next-button" (click)="start()"> Start new quiz</div>
+       </div>
+       
     </div>
   }
 

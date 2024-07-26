@@ -13,10 +13,19 @@ import { CommonModule } from "@angular/common";
 export class QuizComponent implements OnInit{
   quizService = inject(QuizService)
   ngOnInit(): void {
+    this.fetchQuestions();
+  }
+  start(): void {
+    this.fetchQuestions();
+    this.quizService.restart()
+  }
+
+  fetchQuestions():void {
+    this.quizService.question.set([])
     this.quizService.getQuestions().subscribe({
-       next: questions=>this.quizService.question.set(questions),
-      error:(err)=>
-        this.quizService.error.set(err.message),
-      })
+      next: questions=>this.quizService.question.set(questions),
+     error:(err)=>
+       this.quizService.error.set(err.message),
+     })
   }
 }

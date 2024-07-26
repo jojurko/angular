@@ -22,7 +22,7 @@
     margin: 0 auto;
     color: #fff;
     background: #0b0e21;
-    width: 300px;
+    width: 250px;
     font-size: 18px;
     font-weight: 600;
     padding: 14px 75px;
@@ -52,5 +52,10 @@
 
   .hide {
     display: none;
+  }
+
+  .buttons-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
   }
   
