@@ -1,0 +1,13 @@
+<h1 *ngIf="winner; else elseBlock"> {{winner}}
+  </h1>
+<ng-template #elseBlock><h1>Current player: {{ player }}</h1></ng-template>
+<button (click) = "newGame()">Start new game</button>
+<hr>
+<div>
+<main>
+    <app-square *ngFor = "let val of squares; let i = index"
+    [value] = "val"
+    [gameOver]="winner==null?false:true"
+    (click) = "makeMove(i)"></app-square>
+</main>
+</div>
